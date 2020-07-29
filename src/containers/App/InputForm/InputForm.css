@@ -7,3 +7,11 @@
 .platform-options .card .card-body {
     padding: 0px;
 }
+
+.bad-movie-binge-section span {
+    margin-right: 10px;
+}
+
+.deakbreaker-section .switch {
+    margin-left: 5px;
+}
