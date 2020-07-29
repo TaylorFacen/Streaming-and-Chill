@@ -3,6 +3,7 @@
 Knapsack algorithm that optimizes movie view for an allotted time
 Inputs:
     - df: Dataframe of all possble movies with their value and duration (in minutes)
+            ***NOTE: the script assumes the Dataframe is sorted by duration in descending order!!!!!
     - time: time (in munites) of the 'knapsack'
 Outputs:
     - total_value: amount of 'points' awarded for the optimized movie set in the knapsack
