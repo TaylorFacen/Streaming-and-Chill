@@ -30,3 +30,4 @@ yarn-error.log*
 /api/.ipynb_checkpoints
 /api/Upload_Data.ipynb
 .vercel
+/.vscode
