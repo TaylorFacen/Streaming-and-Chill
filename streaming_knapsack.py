@@ -17,7 +17,8 @@ def streaming_knapsack(df, time):
     # Get movie names, duration, and points as dictionaries
     title  = df['Title'].to_dict()
     duration = df['Runtime'].to_dict()
-    points = df['IMDb'].to_dict()
+    #points = df['IMDb'].to_dict()
+    points = (df['IMDb']*df['Runtime']).to_dict()
     
     #Create memoization Matrix
     n = len(title.keys())
@@ -31,44 +32,58 @@ def streaming_knapsack(df, time):
         movie_time  = int(duration[i-1])
         movie_value = points[i-1]
         
-        for j in range(1, time + 1):
-            if movie_time <= j:
-                
-                if value_memo[i-1][j-movie_time] + movie_value > value_memo[i-1][j]:
-                    value_memo[i][j] = value_memo[i-1][j-movie_time] + movie_value
-                    title_memo[i][j] = title_memo[i-1][j-movie_time].copy()
-                    title_memo[i][j].append(movie_name)
-                else:
-                    value_memo[i][j] = value_memo[i-1][j]
-                    title_memo[i][j] = title_memo[i-1][j].copy()
+        j = movie_time
+        while j <= time:
+            if value_memo[i-1][j-movie_time] + movie_value > value_memo[i-1][j]:
+                value_memo[i][j] = value_memo[i-1][j-movie_time] + movie_value
+                title_memo[i][j] = title_memo[i-1][j-movie_time].copy()
+                title_memo[i][j].append(movie_name)
             else:
                 value_memo[i][j] = value_memo[i-1][j]
                 title_memo[i][j] = title_memo[i-1][j].copy()
-            
-            
+            j += 1
+                      
     # retrieve the best value and list of movies  
     total_value = value_memo[n][time]
     movie_selection = title_memo[n][time]
     
     #remove movies from the dataframe so that we can use the updated df for the next mini knapsack
-    df = df[~df['Title'].isin(movie_selection)]
-    df = df.reset_index(drop=True)
+    df_remaining = df[~df['Title'].isin(movie_selection)]
+    df_remaining = df_remaining.reset_index(drop=True)
     
-    return df , total_value , movie_selection
+    return df_remaining , total_value , movie_selection
 
 
-
-# Practice Code
-df = pd.read_csv('movie_data.csv')
-
-dff = df[0:100]
-time = 60*5
-df2 , total_value2 , movie_selection2 = streaming_knapsack(df, time)
-df3 , total_value3 , movie_selection3 = streaming_knapsack(df2, time)
+'''
+Below is practice code and the framework for how to call the knapsack algorithm
+multiple times, per user input
+'''
 
 
+#Example Input
+time_dataframe = {'days': 5, 
+                  'minutes': 300}
 
 
+#Framework to loop through the knapsack and save off the data
+df = pd.read_csv('movie_data.csv') 
+
+movies = {}
+values = {}
+
+#import time as t
+#start = t.time()
+for i in range(time_dataframe['days']):
+    df , total_value , movie_selection = streaming_knapsack(df, time_dataframe['minutes'])
+    values[i+1] = int(round(total_value,0))
+    movies[i+1] = movie_selection
+#end = t.time()
+#print('time = ', end - start) 
+
+
+#Print Results    
+for key in movies:
+    print('timeslot #', key, ':', values[key], ':', movies[key])
 
 
 
