@@ -1,7 +1,7 @@
-main {
-  align-content: center;
+.App {
+  
   box-sizing: border-box;
-  display: grid;
+  
   font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
   hyphens: auto;

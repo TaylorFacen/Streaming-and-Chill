@@ -1,0 +1,9 @@
+.platform-options .card {
+    display: inline-flex;
+    width: 150px;
+    margin: 10px;
+}
+
+.platform-options .card .card-body {
+    padding: 0px;
+}
