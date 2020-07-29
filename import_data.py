@@ -9,7 +9,7 @@ df['Rotten Tomatoes'] = df['Rotten Tomatoes'].str.rstrip('%').astype('float') / 
 df.dropna(subset = ['IMDb','Runtime','Genres'], inplace=True)
 df.Age.fillna('18+', inplace=True)
 df = df.sort_values(by='Runtime', ascending=False)
-df = df.reset_index(drop = True)
+#df = df.reset_index(drop = True)
 
 df.to_csv('movie_data.csv',index=False)
 
@@ -41,6 +41,7 @@ print("Missing values per column:")
 print(df.apply(num_missing, axis=0))
 
 # Counting number of genres 
+# df['Genres'] = df.Genres.apply(lambda x: x.split(',')) # this was used for counting the number of genres
 # Counts = pd.Series(sum([item for item in df.Genres], [])).value_counts() #This was used for counting genres
 
 # -------------------------------- # 
