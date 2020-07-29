@@ -9,7 +9,6 @@ df['Rotten Tomatoes'] = df['Rotten Tomatoes'].str.rstrip('%').astype('float') / 
 df.dropna(subset = ['IMDb','Runtime','Genres'], inplace=True)
 df.Age.fillna('18+', inplace=True)
 
-# df['Genres'] = df.Genres.apply(lambda x: x.split(',')) # this was used for counting the number of genres
 # Split off test set
 df_test = df[df.ID <= 100].reset_index(drop=True)
 
@@ -37,6 +36,7 @@ print("Missing values per column:")
 print(df.apply(num_missing, axis=0))
 
 # Counting number of genres 
+# df['Genres'] = df.Genres.apply(lambda x: x.split(',')) # this was used for counting the number of genres
 # Counts = pd.Series(sum([item for item in df.Genres], [])).value_counts() #This was used for counting genres
 
 # -------------------------------- # 
