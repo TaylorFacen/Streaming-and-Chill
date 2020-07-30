@@ -1,14 +1,16 @@
 from flask import Flask, request
 from flask_cors import CORS
+import simplejson as json
 
-from helper_functions import get_movies
+from helper_functions import get_movies, build_schedule
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/api/schedule', methods = ['POST'])
-def create_schedule():
+def schedule():
     data = request.json
+    print(data)
 
     # Get filtered data from database
     platforms = [platform for platform, has_platform in data['hasPlatforms'].items() if has_platform]
@@ -24,4 +26,9 @@ def create_schedule():
     # Add preference factors to ratings
 
     # Create optimal schedule
-    return {'schedule': len(movies)}
+    schedule = build_schedule(movies, data['timeChunks'])
+
+    # Format response (e.g. convert NaNs to nulls)
+    schedule = json.loads(json.dumps(schedule, ignore_nan=True))
+
+    return { 'schedule': schedule }

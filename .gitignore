@@ -28,7 +28,8 @@ yarn-error.log*
 .env.build
 
 /api/.ipynb_checkpoints
-/api/Upload_Data.ipynb
+/api/run.py
+*.ipynb
 .vercel
 /.vscode
 
