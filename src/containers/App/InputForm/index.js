@@ -71,6 +71,28 @@ class InputForm extends Component {
             displayBingeSettingsForm: false,
             progress: 4/4
         })
+
+        const { dayCount, hourCount, badMovieBinge, genrePreferences, dealbreaker, hasPlatforms} = this.state;
+
+        const data = {
+            timeChunks: Array.from(hourCount.toString().repeat(dayCount)).map(num => parseInt(num) * 60),
+            badMovieBinge,
+            genrePreferences,
+            genreDealbreaker: dealbreaker,
+            hasPlatforms
+        }
+
+        fetch("http://localhost:5000/api/schedule", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
     }
 
     goBackToBingePeriodForm = () => {

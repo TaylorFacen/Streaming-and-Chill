@@ -28,9 +28,9 @@ export default ({ goBack, hasPlatforms, onSubmit, togglePlatform }) => {
                                 <Card.Text>
                                     <Button 
                                         block 
-                                        variant = { hasPlatforms[platform.id] ? "success" : "light" }
-                                        onClick = { () => togglePlatform( platform.id ) } 
-                                    >{ hasPlatforms[platform.id] ? <FaCheck /> : "Select" }</Button>
+                                        variant = { hasPlatforms[platform.name] ? "success" : "light" }
+                                        onClick = { () => togglePlatform( platform.name ) } 
+                                    >{ hasPlatforms[platform.name] ? <FaCheck /> : "Select" }</Button>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -40,7 +40,7 @@ export default ({ goBack, hasPlatforms, onSubmit, togglePlatform }) => {
                     Select all that apply.
                 </Form.Text>    
             </Form.Group>
-            <Button onClick = { onSubmit }>Next</Button>
+            <Button onClick = { onSubmit } disabled = { Object.values(hasPlatforms).filter(val => val).length === 0 }>Next</Button>
         </div>
     )
 }

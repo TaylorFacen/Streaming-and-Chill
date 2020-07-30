@@ -63,7 +63,7 @@ export default ({ addPreference, dealbreaker, onDealbreakerToggleChange, genrePr
                     placement = "top"
                     overlay = {
                         <Tooltip>
-                            If yes, you'll only receive recommendations from genres you like.
+                            If yes, you'll only receive recommendations from genres you like and/or won't receive recommendations for genres you don't like.
                         </Tooltip>
                     }
                 >

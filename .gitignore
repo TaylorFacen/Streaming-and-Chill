@@ -31,3 +31,5 @@ yarn-error.log*
 /api/Upload_Data.ipynb
 .vercel
 /.vscode
+
+*.pyc
