@@ -41,8 +41,8 @@ print("Missing values per column:")
 print(df.apply(num_missing, axis=0))
 
 # Counting number of genres 
-# df['Genres'] = df.Genres.apply(lambda x: x.split(',')) # this was used for counting the number of genres
-# Counts = pd.Series(sum([item for item in df.Genres], [])).value_counts() #This was used for counting genres
+df['Genres'] = df.Genres.apply(lambda x: x.split(',')) # this was used for counting the number of genres
+Counts = pd.Series(sum([item for item in df.Genres], [])).value_counts() #This was used for counting genres
 
 # -------------------------------- # 
 
