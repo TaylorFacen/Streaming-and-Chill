@@ -23,3 +23,12 @@
 .movie-meta p {
     margin-bottom: 0px;
 }
+
+.spinner-border {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.Loading {
+    margin-top: 15px;
+}

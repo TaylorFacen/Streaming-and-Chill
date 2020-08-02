@@ -48,7 +48,7 @@ export default ({ schedule }) => {
                     <Col sm = { 3 }>
                         <Nav variant="pills" className="flex-column">
                             { days.map(i => (
-                                <Nav.Item>
+                                <Nav.Item key = { i }>
                                     <Nav.Link eventKey = { i }>Day { i + 1 }</Nav.Link>
                                 </Nav.Item>
                             ))}
@@ -58,7 +58,7 @@ export default ({ schedule }) => {
                     <Col sm = { 9 }>
                         <Tab.Content>
                             { days.map(i => (
-                                <Tab.Pane eventKey = { i }>
+                                <Tab.Pane eventKey = { i } key = { i }>
                                     <DaySchedule dayNum = { i + 1 } movies = { schedule[i] } key = { i + 1 } />
                                 </Tab.Pane>
                             ))}
