@@ -25,7 +25,7 @@ const Movie = ({ movie }) => {
     )
 }
 
-const DaySchedule = ({ dayNum, movies }) => {
+const DaySchedule = ({ movies }) => {
     const totalRunTime = movies.reduce((total, currentMovie) => total + currentMovie.Runtime, 0);
 
     return (
@@ -42,7 +42,7 @@ export default ({ schedule }) => {
 
     return (
         <div className = "BingeSchedule">
-            <h1>Schedule</h1>
+            <h2>Schedule</h2>
             <Tab.Container defaultActiveKey = { 0 }>
                 <Row>
                     <Col sm = { 3 }>
@@ -59,7 +59,7 @@ export default ({ schedule }) => {
                         <Tab.Content>
                             { days.map(i => (
                                 <Tab.Pane eventKey = { i } key = { i }>
-                                    <DaySchedule dayNum = { i + 1 } movies = { schedule[i] } key = { i + 1 } />
+                                    <DaySchedule movies = { schedule[i] } key = { i + 1 } />
                                 </Tab.Pane>
                             ))}
                         </Tab.Content>

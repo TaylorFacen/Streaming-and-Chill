@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import { Image } from 'react-bootstrap';
 import './App.css';
 
 import InputForm from './InputForm';
+import logo from '../../images/logo.png';
 
 class App extends Component {
-	state = {
-
-	}
-
 	render(){
 		return (
 		<div className = "App">
-			<h1>Streaming and Chill</h1>
-			<p>Streaming and Chill is a [insert description here...]</p>
+			<h1>STREAM AND CHILL</h1>
+			<Image src = { logo } alt = "Logo: TV with a remote" style = {{ width: "200px" }}/>
+			<p>Your leisure time should be spent relaxing. Stream and Chill enables you to do just that–worry free streaming and chilling. You can optimize your binge watching experience with our state of the art recommendation algorithm! </p>
 			<div className = "Components">
 				<InputForm />
 			</div>
