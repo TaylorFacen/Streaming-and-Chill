@@ -19,6 +19,6 @@ def get_movies(platforms, include_genres, exclude_genres):
     else:
         genre_filter = {}
     
-    movies = list(db.movies.find({ '$and': [platform_filter, genre_filter]}))
+    movies = list(db.movies.find({ '$and': [platform_filter, genre_filter]}).sort('IMDb', 1))
 
     return movies
