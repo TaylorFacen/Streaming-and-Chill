@@ -15,3 +15,11 @@
 .deakbreaker-section .switch {
     margin-left: 5px;
 }
+
+.Movie {
+    border-bottom: 1px solid lightgray;
+}
+
+.movie-meta p {
+    margin-bottom: 0px;
+}
