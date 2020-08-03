@@ -35,7 +35,7 @@ def streaming_knapsack(df, time):
     # Get movie names, duration, and points as dictionaries
     ID = df['_id'].to_dict()
     duration = df['Runtime'].to_dict()
-    points = (df['IMDb']*df['Runtime']).to_dict()
+    points = (df['IMDb_norm']*df['Runtime']).to_dict()
     
     #Create memoization Matrix
     n = len(points.keys())
