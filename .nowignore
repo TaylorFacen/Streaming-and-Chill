@@ -1,2 +1,6 @@
 README.md
 yarn.lock
+
+/api/env
+
+*.pyc

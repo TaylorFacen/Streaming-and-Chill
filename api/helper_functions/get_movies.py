@@ -1,11 +1,14 @@
 from pymongo import MongoClient
 
-from .config import MONGO_URL
-
-client = MongoClient(MONGO_URL)
-db = client.StreamingAndChillDB
+import os
+from dotenv import load_dotenv
+load_dotenv()
+MONGO_URL = os.environ['MONGO_URL']
 
 def get_movies(platforms, include_genres, exclude_genres):
+    client = MongoClient(MONGO_URL)
+    db = client.StreamingAndChillDB
+
     platform_filter = {
         # Filter checks to see if movie is available on any of the user's platforms
         '$or': list(map(lambda platform: { platform: 1}, platforms))

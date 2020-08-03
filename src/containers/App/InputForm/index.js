@@ -89,7 +89,7 @@ class InputForm extends Component {
             hasPlatforms
         }
 
-        fetch("http://localhost:5000/api/schedule", {
+        fetch("/api/schedule", {
             method: 'POST',
             mode: 'cors',
             headers: {
