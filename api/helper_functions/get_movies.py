@@ -25,7 +25,7 @@ def get_movies(platforms, include_genres, exclude_genres, bad_movie_binge):
     # Ratings Filter
     rating_filter = { 'IMDb_norm': { '$lt' if bad_movie_binge else '$gt': 0 }}
     
-    movies = list(db.movies.find({ '$and': [platform_filter, genre_filter, rating_filter]}).sort('IMDb', 1))
+    movies = list(db.movies.find({ '$and': [platform_filter, genre_filter, rating_filter]}).sort('Runtime', -1))
 
     # If bad movie binge, flip every rating
     if bad_movie_binge:

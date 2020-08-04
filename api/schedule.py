@@ -41,4 +41,4 @@ def schedule():
     # Format response (e.g. convert NaNs to nulls)
     schedule = json.loads(json.dumps(schedule, ignore_nan=True))
 
-    return { 'schedule': schedule }
+    return { 'schedule': schedule  }
