@@ -106,7 +106,6 @@ class InputForm extends Component {
         .then(resp => resp.json())
         .then(data => {
             const { schedule } = data;
-            console.log(JSON.stringify(schedule))
 
             this.setState({
                 schedule,
