@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/api/schedule', methods = ['POST'])
 def schedule():
     data = request.json
-    print(data)
 
     is_dealbreaker = data['genreDealbreaker']
     likes = data['genrePreferences']['likes']
