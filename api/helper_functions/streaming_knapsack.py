@@ -22,7 +22,7 @@ def build_schedule(movies, time_chunks):
     selected_movies = []
     values = {}
     IDs = {}
-    sequels_for_later = pd.DataFrame(columns = movies.columns)
+    sequels_for_later = pd.DataFrame(columns = df.columns)
     
     for i, time_chunk in enumerate(time_chunks):
         sequel = True
@@ -125,4 +125,4 @@ def streaming_knapsack(df, time):
     df_remaining = df[~df['_id'].isin(ID_selection)]
     df_remaining = df_remaining.reset_index(drop=True)
     
-    return movie_selections #df_remaining , total_value , ID_selection, movie_selections, movie_selection_df
+    return df_remaining , total_value , ID_selection, movie_selections, movie_selection_df

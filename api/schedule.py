@@ -8,12 +8,16 @@ app = Flask(__name__)
 @app.route('/api/schedule', methods = ['POST'])
 def schedule():
     data = request.json
+    print(data)
 
     is_dealbreaker = data['genreDealbreaker']
     likes = data['genrePreferences']['likes']
     dislikes = data['genrePreferences']['dislikes']
     has_platforms = data['hasPlatforms']
     bad_movie_binge = data['badMovieBinge']
+    age_selections = data['ageSelections']
+    country_selections = data['countrySelections']
+    language_selections = data['languageSelections']
 
 
     # Get filtered data from database
@@ -23,9 +27,9 @@ def schedule():
         exclude_genres = dislikes if len(dislikes) > 0 else None
     else:
         include_genres = None
-        exclude_genres = None
+        exclude_genres = None 
 
-    movies = get_movies(platforms, include_genres, exclude_genres, bad_movie_binge)
+    movies = get_movies(platforms, include_genres, exclude_genres, bad_movie_binge, age_selections, country_selections, language_selections)
 
     # Add preference factors to ratings
     if not is_dealbreaker:

@@ -32,7 +32,10 @@ class InputForm extends Component {
             prime: false
         },
         schedule: null,
-        isLoading: false
+        isLoading: false,
+        ageSelections: [{ name: '7+', id: '7+' },{ name: '13+', id: '13+' },{ name: '16+', id: '16+' },{ name: '18+', id: '18+' },{ name: 'all', id: 'all' }],
+        countrySelections: [{ name: 'United States', id: 'United States' }],
+        languageSelections: [{ name: 'English', id: 'English' }]
         // Test schedule
         // schedule: [[{"Age":"7+","Country":["Romania","United Kingdom"],"Directors":["Tom Barton-Humphreys"],"Disney+":0,"Genres":["Documentary"],"Hulu":0,"IMDb":8.7,"Language":["Romanian","English"],"Netflix":1,"Prime Video":1,"Rotten Tomatoes":null,"Runtime":92,"Title":"Untamed Romania","Type":0, "Year":2018, "_id":1459},{"Age":"18+","Country":["India"],"Directors":["Deepak Gattani","Ym Movies"],"Disney+":0,"Genres":["Documentary","Music"],"Hulu":0,"IMDb":8.7,"Language":[""],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":87,"Title":"One Heart: The A.R. Rahman Concert Film","Type":0,"Year":2017,"_id":1980},{"Age":"18+","Country":[""],"Directors":[""],"Disney+":0,"Genres":["Talk-Show"],"Hulu":0,"IMDb":9.3,"Language":[""],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":61,"Title":"My Next Guest with David Letterman and Shah Rukh Khan","Type":0,"Year":2019,"_id":1293}],[{"Age":"18+","Country":["United States"],"Directors":["Kevin Booth","David Johndrow"],"Disney+":0,"Genres":["Documentary","Comedy"],"Hulu":0,"IMDb":8.5,"Language":["English"],"Netflix":1,"Prime Video":1,"Rotten Tomatoes":null,"Runtime":81,"Title":"Bill Hicks: Sane Man","Type":0,"Year":1989,"_id":1091},{"Age":"18+","Country":["India","Canada"],"Directors":["Anurag Singh"],"Disney+":0,"Genres":["Drama","Family","History"],"Hulu":0,"IMDb":8.5,"Language":["Punjabi"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":159,"Title":"Punjab 1984","Type":0,"Year":2014,"_id":1156}],[{"Age":"18+","Country":["United States"],"Directors":["Bo Burnham","Christopher Storer"],"Disney+":0,"Genres":["Comedy","Music"],"Hulu":0,"IMDb":8.5,"Language":["English"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":60,"Title":"Bo Burnham: What.","Type":0,"Year":2013,"_id":1043},{"Age":"18+","Country":["United States"],"Directors":["Lisa France"],"Disney+":0,"Genres":["Documentary"],"Hulu":0,"IMDb":8.5,"Language":["English","Arabic"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":90,"Title":"Roll with Me","Type":0,"Year":2017,"_id":2227},{"Age":"7+","Country":["Japan"],"Directors":["Isao Takahata"],"Disney+":0,"Genres":["Animation","Drama","War"],"Hulu":1,"IMDb":8.5,"Language":["Japanese"],"Netflix":0,"Prime Video":0,"Rotten Tomatoes":0.98,"Runtime":89,"Title":"Grave of the Fireflies","Type":0,"Year":1988,"_id":3567}],[{"Age":"13+","Country":["United Kingdom","France","United States"],"Directors":["Asif Kapadia"],"Disney+":0,"Genres":["Documentary","Biography","Sport"],"Hulu":0,"IMDb":8.5,"Language":["English","Portuguese","French","Japanese"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":0.93,"Runtime":106,"Title":"Senna","Type":0,"Year":2010,"_id":48},{"Age":"18+","Country":["United States"],"Directors":["Stan Lathan"],"Disney+":0,"Genres":["Comedy"],"Hulu":0,"IMDb":8.5,"Language":["English"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":0.35,"Runtime":65,"Title":"Dave Chappelle: Sticks & Stones","Type":0,"Year":2019,"_id":276},{"Age":"13+","Country":["Argentina"],"Directors":["Raúl Campos","Jan Suter"],"Disney+":0,"Genres":["Comedy"],"Hulu":0,"IMDb":8.6,"Language":["Spanish"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":66,"Title":"Luciano Mellera: Infantiloide","Type":0,"Year":2018,"_id":1539}],[{"Age":"18+","Country":["United States"],"Directors":["Bo Burnham","Christopher Storer"],"Disney+":0,"Genres":["Comedy","Music"],"Hulu":0,"IMDb":8.4,"Language":["English"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":60,"Title":"Bo Burnham: Make Happy","Type":0,"Year":2016,"_id":1018},{"Age":"all","Country":["India"],"Directors":["Paresh Mokashi"],"Disney+":0,"Genres":["Biography","Comedy","Drama"],"Hulu":0,"IMDb":8.4,"Language":["Marathi"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":96,"Title":"Harishchandrachi Factory","Type":0,"Year":2009,"_id":1117},{"Age":"18+","Country":["United States"],"Directors":["Ron Davis"],"Disney+":0,"Genres":["Documentary"],"Hulu":0,"IMDb":8.4,"Language":["English"],"Netflix":1,"Prime Video":0,"Rotten Tomatoes":null,"Runtime":84,"Title":"Life in the Doghouse","Type":0,"Year":2018,"_id":1336}]]
     }
@@ -79,14 +82,17 @@ class InputForm extends Component {
             isLoading: true
         })
 
-        const { dayCount, hourCount, badMovieBinge, genrePreferences, dealbreaker, hasPlatforms} = this.state;
+        const { dayCount, hourCount, badMovieBinge, genrePreferences, dealbreaker, hasPlatforms, ageSelections, countrySelections, languageSelections} = this.state;
 
         const data = {
             timeChunks: Array.from(hourCount.toString().repeat(dayCount)).map(num => parseInt(num) * 60),
             badMovieBinge,
             genrePreferences,
             genreDealbreaker: dealbreaker,
-            hasPlatforms
+            hasPlatforms,
+            ageSelections: ageSelections.map(a => a.id),
+            countrySelections: countrySelections.map(c => c.id),
+            languageSelections: languageSelections.map(l => l.id)
         }
 
         fetch("/api/schedule", {
@@ -185,9 +191,47 @@ class InputForm extends Component {
         })
     }
 
+    selectAgeOption(selectedList, selectedItem) {
+        this.setState({
+            ageSelections: selectedList
+        })
+    }
+
+    removeAgeOption(selectedList, selectedItem) {
+        this.setState({
+            ageSelections: selectedList
+        })
+    }
+
+    selectCountryOption(selectedList, selectedItem) {
+        console.log(selectedList)
+        this.setState({
+            countrySelections: selectedList
+        })
+    }
+
+    removeCountryOption(selectedList, selectedItem) {
+        this.setState({
+            countrySelections: selectedList
+        })
+    }
+
+    selectLanguageOption(selectedList, selectedItem) {
+        console.log(selectedList)
+        this.setState({
+            languageSelections: selectedList
+        })
+    }
+
+    removeLanguageOption(selectedList, selectedItem) {
+        this.setState({
+            languageSelections: selectedList
+        })
+    }
+
     render(){
         const { displayBingePeriodForm, displayPlatformForm, displayBingeGenreForm, displayBingeSettingsForm, displayBingeSchedule, progress } = this.state;
-        const { badMovieBinge, dayCount, dealbreaker, genrePreferences, hourCount, hasPlatforms, schedule, isLoading } = this.state;
+        const { badMovieBinge, dayCount, dealbreaker, genrePreferences, hourCount, hasPlatforms, schedule, isLoading, ageSelections, countrySelections, languageSelections } = this.state;
         return (
             <div className = "InputForm">
                 <ProgressBar now = { progress } max = { 1 } />
@@ -223,6 +267,15 @@ class InputForm extends Component {
                             badMovieBinge = { badMovieBinge }
                             goBack = { this.goBacktoBingeGenreForm.bind(this) }
                             onBadMovieToggleChange = { this.onBadMovieToggleChange.bind(this) }
+                            ageSelections = { ageSelections }
+                            countrySelections = { countrySelections }
+                            languageSelections = { languageSelections }
+                            selectAgeOption = { this.selectAgeOption.bind(this) }
+                            removeAgeOption = { this.removeAgeOption.bind(this) }
+                            selectCountryOption = { this.selectCountryOption.bind(this) }
+                            removeCountryOption = { this.removeCountryOption.bind(this) }
+                            selectLanguageOption = { this.selectLanguageOption.bind(this) }
+                            removeLanguageOption = { this.removeLanguageOption.bind(this) }
                         />
                     ) : null }
                 </Form>
