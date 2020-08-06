@@ -3,11 +3,11 @@ import simplejson as json
 
 from .helper_functions import get_movies, build_schedule
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 @app.route('/api/schedule', methods = ['POST'])
-def schedule():
-    data = request.json
+def schedule(): 
+    data = request.json 
 
     is_dealbreaker = data['genreDealbreaker']
     likes = data['genrePreferences']['likes']
@@ -39,7 +39,8 @@ def schedule():
             movie['IMDb_norm'] *= boost
 
     # Create optimal schedule
-    schedule = build_schedule(movies, data['timeChunks'])
+    time_chunks = [int(data['hourCount']) * 60] * int(data['dayCount'])
+    schedule = build_schedule(movies, time_chunks)
 
     # Format response (e.g. convert NaNs to nulls)
     schedule = json.loads(json.dumps(schedule, ignore_nan=True))

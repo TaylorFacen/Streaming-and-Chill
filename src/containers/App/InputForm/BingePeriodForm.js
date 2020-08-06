@@ -23,6 +23,6 @@ export default ({ dayCount, hourCount, onChange, onSubmit, errorMessage }) => (
             />
             <Form.Text className = "form-error">{ errorMessage }</Form.Text>
         </Form.Group>
-        <Button disabled = { dayCount * hourCount === 0 }onClick = { onSubmit }>Next</Button>
+        <Button disabled = { (dayCount === "" || hourCount === "") || dayCount * hourCount === 0 }onClick = { onSubmit }>Next</Button>
     </div>
 )

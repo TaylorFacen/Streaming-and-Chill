@@ -100,7 +100,8 @@ class InputForm extends Component {
         const { dayCount, hourCount, badMovieBinge, genrePreferences, dealbreaker, hasPlatforms, ageSelections, countrySelections, languageSelections} = this.state;
 
         const data = {
-            timeChunks: Array.from(hourCount.toString().repeat(dayCount)).map(num => parseInt(num) * 60),
+            dayCount,
+            hourCount,
             badMovieBinge,
             genrePreferences,
             genreDealbreaker: dealbreaker,
