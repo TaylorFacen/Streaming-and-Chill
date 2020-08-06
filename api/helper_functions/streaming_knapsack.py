@@ -108,7 +108,7 @@ def streaming_knapsack(df, time):
             else:
                 value_memo[i][j] = value_memo[i-1][j]
                 ID_memo[i][j] = ID_memo[i-1][j].copy()
-            j += 1
+            j += 5
                       
     # retrieve the best value and list of movies  
     total_value = value_memo[n][time]
