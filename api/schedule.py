@@ -35,7 +35,7 @@ def schedule():
         for movie in movies:
             like_counts = len(set(likes).intersection(set(movie['Genres'])))
             dislike_counts = len(set(dislikes).intersection(set(movie['Genres'])))
-            boost = (1.2 ** like_counts) * (.8 ** dislike_counts)
+            boost = max((1.2 ** like_counts) * (.8 ** dislike_counts), 1.5) # Cap the boost to 1.5
             movie['IMDb_norm'] *= boost
 
     # Create optimal schedule
