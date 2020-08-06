@@ -11,6 +11,7 @@ import './InputForm.css';
 
 class InputForm extends Component {
     state = {
+        errorMessage: null,
         displayBingePeriodForm: true,
         displayPlatformForm: false,
         displayBingeGenreForm: false,
@@ -41,13 +42,23 @@ class InputForm extends Component {
     }
 
     onSubmitBingePeriodForm = () => {
-        this.setState({
-            displayBingePeriodForm: false,
-            displayPlatformForm: true,
-            displayBingeGenreForm: false,
-            displayBingeSettingsForm: false,
-            progress: 1/4
-        })
+        const { hourCount } = this.state;
+
+        if ( hourCount > 12 ) {
+            this.setState({
+                errorMessage: "That's way too long to watch TV. You should make some friends and go outside."
+            })
+        } else {
+            this.setState({
+                displayBingePeriodForm: false,
+                displayPlatformForm: true,
+                displayBingeGenreForm: false,
+                displayBingeSettingsForm: false,
+                progress: 1/4,
+                errorMessage: null
+            })
+        }
+        
     }
 
     onSubmitPlatformForm = () => {
@@ -230,7 +241,7 @@ class InputForm extends Component {
 
     render(){
         const { displayBingePeriodForm, displayPlatformForm, displayBingeGenreForm, displayBingeSettingsForm, displayBingeSchedule, progress } = this.state;
-        const { badMovieBinge, dayCount, dealbreaker, genrePreferences, hourCount, hasPlatforms, schedule, isLoading, ageSelections, countrySelections, languageSelections } = this.state;
+        const { errorMessage, badMovieBinge, dayCount, dealbreaker, genrePreferences, hourCount, hasPlatforms, schedule, isLoading, ageSelections, countrySelections, languageSelections } = this.state;
         return (
             <div className = "InputForm">
                 <ProgressBar now = { progress } max = { 1 } />
@@ -241,6 +252,7 @@ class InputForm extends Component {
                             hourCount = { hourCount }
                             onChange = { this.onInputFieldChange.bind(this) }
                             onSubmit = { this.onSubmitBingePeriodForm.bind(this) }
+                            errorMessage = { errorMessage }
                         />
                     ) : null }
                     { displayPlatformForm ? (

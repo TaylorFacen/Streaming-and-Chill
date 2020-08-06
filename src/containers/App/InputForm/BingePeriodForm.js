@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-export default ({ dayCount, hourCount, onChange, onSubmit }) => (
+export default ({ dayCount, hourCount, onChange, onSubmit, errorMessage }) => (
     <div className = "BingePeriodForm">
         <h2>Binge Period</h2>
         <Form.Group controlId="dayCount">
@@ -21,6 +21,7 @@ export default ({ dayCount, hourCount, onChange, onSubmit }) => (
                 name = "hourCount"
                 onChange = { onChange }
             />
+            <Form.Text className = "form-error">{ errorMessage }</Form.Text>
         </Form.Group>
         <Button onClick = { onSubmit }>Next</Button>
     </div>
