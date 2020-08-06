@@ -42,11 +42,15 @@ class InputForm extends Component {
     }
 
     onSubmitBingePeriodForm = () => {
-        const { hourCount } = this.state;
+        const { hourCount, dayCount } = this.state;
 
         if ( hourCount > 12 ) {
             this.setState({
-                errorMessage: "That's way too long to watch TV. You should make some friends and go outside."
+                errorMessage: "That's way too long to watch TV. You should make some friends and go outside, or you can watch up to 12 hours of TV."
+            })
+        } else if ( hourCount < 0 || dayCount < 0 ) {
+            this.setState({
+                errorMessage: "It's currently not possible to go back in time. Try entering in positive numbers."
             })
         } else {
             this.setState({
