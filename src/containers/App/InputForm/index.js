@@ -52,6 +52,10 @@ class InputForm extends Component {
             this.setState({
                 errorMessage: "It's currently not possible to go back in time. Try entering in positive numbers."
             })
+        } else if ( parseFloat(dayCount) !== Math.floor(dayCount) ) {
+            this.setState({
+                errorMessage: "Please enter a whole number"
+            })
         } else {
             this.setState({
                 displayBingePeriodForm: false,

@@ -36,3 +36,9 @@
 .form-error {
     color: red
 }
+
+.BingePeriodForm input {
+    margin: 0px 30%;
+    width: 40%;
+    text-align: center;
+}

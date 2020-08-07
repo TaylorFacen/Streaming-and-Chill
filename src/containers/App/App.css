@@ -1,4 +1,5 @@
 .App {
+  padding: 50px 20px;
   
   box-sizing: border-box;
   
@@ -9,7 +10,6 @@
   margin: 0 auto;
   max-width: 680px;
   min-height: 100vh;
-  padding: 72px 0;
   text-align: center;
 }
 h1 {
