@@ -92,48 +92,63 @@ class InputForm extends Component {
     onSubmitForm = e => {
         e.preventDefault();
 
-        this.setState({
-            displayBingePeriodForm: false,
-            displayPlatformForm: false,
-            displayBingeGenreForm: false,
-            displayBingeSettingsForm: false,
-            progress: 4/4,
-            isLoading: true
-        })
-
         const { dayCount, hourCount, badMovieBinge, genrePreferences, dealbreaker, hasPlatforms, ageSelections, countrySelections, languageSelections} = this.state;
 
-        const data = {
-            dayCount,
-            hourCount,
-            badMovieBinge,
-            genrePreferences,
-            genreDealbreaker: dealbreaker,
-            hasPlatforms,
-            ageSelections: ageSelections.map(a => a.id),
-            countrySelections: countrySelections.map(c => c.id),
-            languageSelections: languageSelections.map(l => l.id)
-        }
-
-        fetch("/api/schedule", {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            const { schedule } = data;
-
+        if ( ageSelections.length === 0 ) {
             this.setState({
-                schedule,
-                displayBingeSchedule: true,
-                isLoading: false
+                errorMessage: "Please select at least one age rating."
             })
-        })
-        .catch(error => console.log(error))
+        } else if ( countrySelections.length === 0 ) {
+            this.setState({
+                errorMessage: "Please select at least one country."
+            })
+        } else if ( languageSelections.length === 0 ) {
+            this.setState({
+                errorMessage: "Please select at least one language."
+            })
+        } else {
+            this.setState({
+                displayBingePeriodForm: false,
+                displayPlatformForm: false,
+                displayBingeGenreForm: false,
+                displayBingeSettingsForm: false,
+                progress: 4/4,
+                isLoading: true,
+                errorMessage: null
+            })
+
+            const data = {
+                dayCount,
+                hourCount,
+                badMovieBinge,
+                genrePreferences,
+                genreDealbreaker: dealbreaker,
+                hasPlatforms,
+                ageSelections: ageSelections.map(a => a.id),
+                countrySelections: countrySelections.map(c => c.id),
+                languageSelections: languageSelections.map(l => l.id)
+            }
+
+            fetch("/api/schedule", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                const { schedule } = data;
+    
+                this.setState({
+                    schedule,
+                    displayBingeSchedule: true,
+                    isLoading: false
+                })
+            })
+            .catch(error => console.log(error))
+        }
     }
 
     goBackToBingePeriodForm = () => {
@@ -223,7 +238,6 @@ class InputForm extends Component {
     }
 
     selectCountryOption(selectedList, selectedItem) {
-        console.log(selectedList)
         this.setState({
             countrySelections: selectedList
         })
@@ -236,7 +250,6 @@ class InputForm extends Component {
     }
 
     selectLanguageOption(selectedList, selectedItem) {
-        console.log(selectedList)
         this.setState({
             languageSelections: selectedList
         })
@@ -296,6 +309,7 @@ class InputForm extends Component {
                             removeCountryOption = { this.removeCountryOption.bind(this) }
                             selectLanguageOption = { this.selectLanguageOption.bind(this) }
                             removeLanguageOption = { this.removeLanguageOption.bind(this) }
+                            errorMessage = { errorMessage }
                         />
                     ) : null }
                 </Form>
