@@ -6,4 +6,6 @@
 
 Your leisure time should be spent relaxing. Stream and Chill enables you to do just that–worry free streaming and chilling. You can optimize your binge watching experience with our state of the art recommendation algorithm!
 
+Click [here](https://streamandchill.app) to use the app.
+
 This application was created by the LGO Summer Core Team 5 - (Hi-Five)
