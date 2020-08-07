@@ -119,7 +119,7 @@ class InputForm extends Component {
 
             const data = {
                 dayCount,
-                hourCount,
+                hourCount: parseFloat(hourCount),
                 badMovieBinge,
                 genrePreferences,
                 genreDealbreaker: dealbreaker,
@@ -140,7 +140,7 @@ class InputForm extends Component {
             .then(resp => resp.json())
             .then(data => {
                 const { schedule } = data;
-    
+
                 this.setState({
                     schedule,
                     displayBingeSchedule: true,

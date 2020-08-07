@@ -17,6 +17,8 @@ def schedule():
     age_selections = data['ageSelections']
     country_selections = data['countrySelections']
     language_selections = data['languageSelections']
+    hour_count = float(data['hourCount'])
+    day_count = int(data['dayCount'])
 
 
     # Get filtered data from database
@@ -29,20 +31,23 @@ def schedule():
         exclude_genres = None 
 
     movies = get_movies(platforms, include_genres, exclude_genres, bad_movie_binge, age_selections, country_selections, language_selections)
+    
+    if len(movies) > 0:
+        # Add preference factors to ratings
+        if not is_dealbreaker:
+            for movie in movies:
+                like_counts = len(set(likes).intersection(set(movie['Genres'])))
+                dislike_counts = len(set(dislikes).intersection(set(movie['Genres'])))
+                boost = max((1.2 ** like_counts) * (.8 ** dislike_counts), 1.5) # Cap the boost to 1.5
+                movie['IMDb_norm'] *= boost
 
-    # Add preference factors to ratings
-    if not is_dealbreaker:
-        for movie in movies:
-            like_counts = len(set(likes).intersection(set(movie['Genres'])))
-            dislike_counts = len(set(dislikes).intersection(set(movie['Genres'])))
-            boost = max((1.2 ** like_counts) * (.8 ** dislike_counts), 1.5) # Cap the boost to 1.5
-            movie['IMDb_norm'] *= boost
+        # Create optimal schedule
+        time_chunks = [int(hour_count * 60)] * day_count
+        schedule = build_schedule(movies, time_chunks)
 
-    # Create optimal schedule
-    time_chunks = [int(data['hourCount']) * 60] * int(data['dayCount'])
-    schedule = build_schedule(movies, time_chunks)
-
-    # Format response (e.g. convert NaNs to nulls)
-    schedule = json.loads(json.dumps(schedule, ignore_nan=True))
-
+        # Format response (e.g. convert NaNs to nulls)
+        schedule = json.loads(json.dumps(schedule, ignore_nan=True))
+    else:
+        schedule = [[] for day in range(day_count)]
+        
     return { 'schedule': schedule  }

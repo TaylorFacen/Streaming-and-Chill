@@ -39,33 +39,40 @@ const DaySchedule = ({ movies }) => {
 export default ({ schedule }) => {
     const dayCount = schedule.length;
     const days = Array.from(Array(dayCount).keys());
+    const isValidSchedule = schedule.filter(day => day.length > 0).length > 0;
 
     return (
         <div className = "BingeSchedule">
             <h2>Schedule</h2>
-            <Tab.Container defaultActiveKey = { 0 }>
-                <Row>
-                    <Col sm = { 3 }>
-                        <Nav variant="pills" className="flex-column">
-                            { days.map(i => (
-                                <Nav.Item key = { i }>
-                                    <Nav.Link eventKey = { i }>Day { i + 1 }</Nav.Link>
-                                </Nav.Item>
-                            ))}
-                        </Nav>
-                    </Col>
+            { isValidSchedule ? (
+                <Tab.Container defaultActiveKey = { 0 }>
+                    <Row>
+                        <Col sm = { 3 }>
+                            <Nav variant="pills" className="flex-column">
+                                { days.map(i => (
+                                    <Nav.Item key = { i }>
+                                        <Nav.Link eventKey = { i }>Day { i + 1 }</Nav.Link>
+                                    </Nav.Item>
+                                ))}
+                            </Nav>
+                        </Col>
 
-                    <Col sm = { 9 }>
-                        <Tab.Content>
-                            { days.map(i => (
-                                <Tab.Pane eventKey = { i } key = { i }>
-                                    <DaySchedule movies = { schedule[i] } key = { i + 1 } />
-                                </Tab.Pane>
-                            ))}
-                        </Tab.Content>
-                    </Col>
-                </Row>
-            </Tab.Container>
+                        <Col sm = { 9 }>
+                            <Tab.Content>
+                                { days.map(i => (
+                                    <Tab.Pane eventKey = { i } key = { i }>
+                                        <DaySchedule movies = { schedule[i] } key = { i + 1 } />
+                                    </Tab.Pane>
+                                ))}
+                            </Tab.Content>
+                        </Col>
+                    </Row>
+                </Tab.Container>
+            ) : (
+                <div>
+                    <p>Looks like there aren't any movies that fit your critera. You can either go outside and smell some flowers or <a href = "/">try again</a>. </p>
+                </div>
+            ) }
         </div>
     )
 }

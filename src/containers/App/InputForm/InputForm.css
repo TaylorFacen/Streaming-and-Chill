@@ -50,3 +50,7 @@
 .BingeSettingsForm .col {
     padding: 0px 5px;
 }
+
+.BingeSchedule > div {
+    margin-top: 20px;
+}
