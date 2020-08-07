@@ -54,3 +54,25 @@
 .BingeSchedule > div {
     margin-top: 20px;
 }
+
+.age-rating-name {
+    font-size: 20px;
+}
+
+.age-restriction-options .card {
+    display: inline-flex;
+    width: 100px;
+    margin: 10px;
+}
+
+.age-restriction-options .card-body {
+    padding: 20px 0px 0px 0px!important;
+}
+
+h2 {
+    text-align: center;
+}
+
+.age-restriction-row {
+    display: block !important;
+}

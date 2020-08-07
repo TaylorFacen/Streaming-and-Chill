@@ -34,7 +34,7 @@ class InputForm extends Component {
         },
         schedule: null,
         isLoading: false,
-        ageSelections: [{ name: '7+', id: '7+' },{ name: '13+', id: '13+' },{ name: '16+', id: '16+' },{ name: '18+', id: '18+' },{ name: 'all', id: 'all' }],
+        ageSelections: [ '7+', '13+', '16+', '18+', 'all'],
         countrySelections: [{ name: 'United States', id: 'United States' }],
         languageSelections: [{ name: 'English', id: 'English' }]
         // Test schedule
@@ -124,7 +124,7 @@ class InputForm extends Component {
                 genrePreferences,
                 genreDealbreaker: dealbreaker,
                 hasPlatforms,
-                ageSelections: ageSelections.map(a => a.id),
+                ageSelections,
                 countrySelections: countrySelections.map(c => c.id),
                 languageSelections: languageSelections.map(l => l.id)
             }
@@ -225,16 +225,20 @@ class InputForm extends Component {
         })
     }
 
-    selectAgeOption(selectedList, selectedItem) {
-        this.setState({
-            ageSelections: selectedList
-        })
-    }
+    toggleAgeRating = ratingId => {
+        const { ageSelections } = this.state;
 
-    removeAgeOption(selectedList, selectedItem) {
-        this.setState({
-            ageSelections: selectedList
-        })
+        if ( ageSelections.filter(selection => selection === ratingId).length > 0 ) {
+            // remove from list
+            this.setState({
+                ageSelections: ageSelections.filter(selection => selection !== ratingId )
+            })
+        } else {
+            // add to list
+            this.setState({
+                ageSelections: ageSelections.concat(ratingId)
+            })
+        }
     }
 
     selectCountryOption(selectedList, selectedItem) {
@@ -303,8 +307,7 @@ class InputForm extends Component {
                             ageSelections = { ageSelections }
                             countrySelections = { countrySelections }
                             languageSelections = { languageSelections }
-                            selectAgeOption = { this.selectAgeOption.bind(this) }
-                            removeAgeOption = { this.removeAgeOption.bind(this) }
+                            toggleAgeRating = { this.toggleAgeRating.bind(this) }
                             selectCountryOption = { this.selectCountryOption.bind(this) }
                             removeCountryOption = { this.removeCountryOption.bind(this) }
                             selectLanguageOption = { this.selectLanguageOption.bind(this) }

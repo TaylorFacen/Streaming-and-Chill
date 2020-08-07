@@ -20,6 +20,7 @@ const Movie = ({ movie }) => {
 
                 <p>Runtime: { movie.Runtime } minutes</p>
                 <p>IMDb Rating: { movie.IMDb }</p>
+                <p>Age Rating: { movie.Age }</p>
             </div>
         </div>
     )
