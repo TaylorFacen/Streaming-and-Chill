@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { Multiselect } from 'multiselect-react-dropdown';
+import { IoIosInformationCircleOutline } from 'react-icons/io'
 
 const ageRatings = [
     { name: '7+', id: '7+' },
@@ -19,14 +20,27 @@ export default ({ badMovieBinge, goBack, onBadMovieToggleChange, ageSelections, 
         <Button onClick = { goBack } variant = "link">Back</Button>
         <Row className = "bad-movie-binge-section">
             <h2>Bad Movie Binge</h2>
-            <span>Would you prefer to watch bad movies?</span>
-            <BootstrapSwitchButton
-                checked = { badMovieBinge }
-                onlabel = 'Yes'
-                offlabel = 'No'
-                onChange = { onBadMovieToggleChange }
-                onstyle = "success"
-            />
+            <div>
+                <span>Would you prefer to watch bad movies?</span>
+                <OverlayTrigger
+                    className = "tooltip"
+                    placement = "top"
+                    overlay = {
+                        <Tooltip>
+                            A bad movie binge is when you purposefully watch bad movies.
+                        </Tooltip>
+                    }
+                >
+                    <IoIosInformationCircleOutline className = "tip" />
+                </OverlayTrigger>
+                <BootstrapSwitchButton
+                    checked = { badMovieBinge }
+                    onlabel = 'Yes'
+                    offlabel = 'No'
+                    onChange = { onBadMovieToggleChange }
+                    onstyle = "success"
+                />
+            </div>
         </Row>
         <Row>
             <h2>Age Restrictions</h2>

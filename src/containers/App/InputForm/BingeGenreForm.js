@@ -57,7 +57,7 @@ export default ({ addPreference, dealbreaker, onDealbreakerToggleChange, genrePr
                     ))}
                 </tbody>
             </Table>
-            <div className = "deakbreaker-section">
+            <div className = "dealbreaker-section">
                 <span>Is this a dealbreaker?</span>
                 <OverlayTrigger
                     placement = "top"
@@ -67,7 +67,7 @@ export default ({ addPreference, dealbreaker, onDealbreakerToggleChange, genrePr
                         </Tooltip>
                     }
                 >
-                    <IoIosInformationCircleOutline />
+                    <IoIosInformationCircleOutline className = "tip" />
                 </OverlayTrigger>
                 <BootstrapSwitchButton
                     checked = { dealbreaker }

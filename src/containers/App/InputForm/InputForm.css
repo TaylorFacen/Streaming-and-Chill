@@ -1,3 +1,7 @@
+.row {
+    margin: 0px 0px 20px 0px;
+}
+
 .platform-options .card {
     display: inline-flex;
     width: 150px;
@@ -8,12 +12,12 @@
     padding: 0px;
 }
 
-.bad-movie-binge-section span {
-    margin-right: 10px;
+.bad-movie-binge-section {
+    display: block !important;
 }
 
-.deakbreaker-section .switch {
-    margin-left: 5px;
+.tip {
+    margin: 0px 5px;
 }
 
 .Movie {
@@ -41,4 +45,8 @@
     margin: 0px 30%;
     width: 40%;
     text-align: center;
+}
+
+.BingeSettingsForm .col {
+    padding: 0px 5px;
 }
